@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: Cabin;
+  src: url('./assets/fonts/Cabin-Medium.ttf');
+}
+
+@theme {
+  --font-cabin: Cabin, "sans-serif";
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* @keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) rotateX(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+} */
+
+.fade-in {
+  animation: fade-in 3s ease-out forwards;
+}
