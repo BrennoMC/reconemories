@@ -1,6 +1,6 @@
 
 import { useIntroSteps } from "../hooks/scenes/useIntroSteps";
-import Arrow from '../assets/images/seta-para-a-direita.png';
+import Arrow from '/assets/images/seta-para-a-direita.png';
 
 export const Intro = () => {
   const { 
@@ -12,7 +12,7 @@ export const Intro = () => {
   } = useIntroSteps();
 
   return (
-    <div className="flex justify-between flex-col h-screen p-4 bg-[#202020]">
+    <div className="flex justify-between max-w-[700px] w-full flex-col h-screen p-4 bg-[#202020]">
       <div
         className="mt-6 flex flex-col gap-8 h-[80%]"
       >

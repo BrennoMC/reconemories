@@ -1,6 +1,6 @@
 import { Modal } from "../../modal/Modal";
 import { useStepOne } from "./use-step-one";
-import ReloadIcon from "../../../assets/images/reload.png";
+import ReloadIcon from "/assets/images/reload.png";
 
 export const StepOne = () => {
   const { 
@@ -17,7 +17,7 @@ export const StepOne = () => {
   } = useStepOne();
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-y-auto items-center p-4 gap-2 justify-around bg-[#0f1a19]">
+    <div className="flex flex-col h-screen w-full max-w-[700px] overflow-y-auto items-center p-4 gap-2 justify-around bg-[#0f1a19]">
       
       <h1 className="text-[#ffc222] text-6xl font-bold font-cabin my-4">Missão 1</h1>
 

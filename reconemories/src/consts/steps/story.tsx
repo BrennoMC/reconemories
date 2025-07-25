@@ -1,10 +1,10 @@
-import OrangeCatInLove from '../../assets/images/orange-cat-in-love.png';
-import BlackCatInLove from '../../assets/images/black-cat-in-love.png';
-import BlackCatOnTree from '../../assets/images/cat-on-tree.png';
-import BlackCatWithApple from '../../assets/images/black-cat-given-apple.png';
-import OrangeCatPoisoned from '../../assets/images/orange-cat-poisoned.png';
-import OrangeCatWithoutMemories from '../../assets/images/orange-cat-without-memories.png';
-import Crow from '../../assets/images/crow.png';
+import OrangeCatInLove from '/assets/images/orange-cat-in-love.png';
+import BlackCatInLove from '/assets/images/black-cat-in-love.png';
+import BlackCatOnTree from '/assets/images/cat-on-tree.png';
+import BlackCatWithApple from '/assets/images/black-cat-given-apple.png';
+import OrangeCatPoisoned from '/assets/images/orange-cat-poisoned.png';
+import OrangeCatWithoutMemories from '/assets/images/orange-cat-without-memories.png';
+import Crow from '/assets/images/crow.png';
 import { AnimatePresence, motion } from "framer-motion";
 
 export const story = [

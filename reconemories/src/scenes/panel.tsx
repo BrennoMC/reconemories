@@ -17,8 +17,8 @@ export const Panel = () => {
   
   return (
     
-    <div className="flex flex-col h-screen w-full items-center p-4 justify-around bg-[#0f1a19]">
-      <h1 className="mt-4 text-5xl font-bold font-cabin text-white text-white">
+    <div className="flex flex-col h-screen max-w-[700px] w-full items-center p-4 justify-around bg-[#0f1a19]">
+      <h1 className="mt-4 text-5xl font-bold font-cabin text-white">
         MISSÕES
       </h1>
       <div className="grid grid-cols-2 gap-2 w-full">
