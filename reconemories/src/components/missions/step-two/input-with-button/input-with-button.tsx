@@ -7,7 +7,7 @@ interface InputWithButtonProps {
 export const InputWithButton = ({ hint, setHint, handleClick }: InputWithButtonProps) => {
   return (
     <div className="flex flex-col w-full">
-      <label className="font-cabin text-amber-600">Qual a palavra que define a imagem?</label>
+      <label className="font-cabin text-amber-600">O que você acha que está escondido na imagem?</label>
       <div className="flex gap-2 w-[90%] h-[40%] ">
         <div className="w-[40%] border border-white rounded-md px-4 py-1 text-white">
           <input 

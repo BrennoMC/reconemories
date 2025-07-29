@@ -6,20 +6,35 @@ import { LIMIT, MARK_HIDE_CIRCLE } from "../../../consts/mission-two/consts";
 import Elevator from '/assets/images/elevator.jpg';
 import Light from '/assets/images/light.png';
 import { useStepTwo } from "./use-step-two";
+import { useState } from "react";
 
 export const StepTwo = () => {
+  const [showTip, setShowTip] = useState(false);
+  const [tipIndex, setTipIndex] = useState(0);
+
+  const tips = [
+    "1. Esses dois subiram juntos até aqui...",
+    "2. Estão parados em um lugar pequeno e fechado.",
+    "3. Um ambiente comum em prédios altos.",
+    "4. Você pode ver botões numerados nas paredes...",
+  ];
+
+  const handleNextTip = () => {
+    if (tipIndex < tips.length - 1) {
+      setTipIndex(tipIndex + 1);
+    }
+  };
+
   const {     
     circlesList,
     positions,
     count,
     hint,
     isModalOpen,
-    showTip,
     endLimit,
     isLoss,
     setIsModalOpen,
     setCount,
-    setShowTip,
     setHint,
     handleHideCircle,
     verifyCorrectImage,
@@ -31,9 +46,15 @@ export const StepTwo = () => {
     <div className="flex flex-col h-screen max-w-[700px] w-full items-center p-4 gap-4 justify-around bg-[#1b1e23] overflow-scroll">
       <h1 className="text-[#ffc222] text-6xl font-bold font-cabin my-4">Missão 2</h1>
 
-      <div className="flex items-start w-full">
-        <h2 className='text-white font-cabin pr-2'>Tentativas: </h2>
-        <h2 className={cn(endLimit ? 'text-[#ee2400]' : 'text-white')}>{count}</h2>
+      <div className="flex flex-col items-start w-full">
+        <span className="text-white">Círculos escondidos: </span>
+
+        <progress 
+          value={count} 
+          max={LIMIT}  
+          className={cn('w-full h-2 mt-2 rounded-lg bg-gray-700', endLimit ? 'text-[#ee2400]' : 'text-white')}
+        />
+      
       </div>
       <div className="relative w-full min-h-[70%] h-full border border-white rounded-lg flex items-center justify-center">
 
@@ -107,16 +128,35 @@ export const StepTwo = () => {
         />
       )}
       {showTip && (
-        <div className="flex">
-          <span className="text-sm text-amber-600 pr-2">Dica:</span>
-          <span className="text-sm text-white font-cabin">É um local importante para os gatinhos...</span>
+        <div className="flex items-start flex-col gap-2 w-full">
+          <div className="flex ">
+            <span className="text-sm text-amber-600 pr-2">Dica:</span>
+            <span className="text-sm text-white font-cabin">{tips[tipIndex]}</span>
+          </div>
+          {tipIndex < tips.length - 1 ? (
+            <button
+              onClick={handleNextTip}
+              className="text-xs text-amber-400 underline hover:text-amber-300"
+            >
+              <span className="text-xs text-amber-500">Mais uma dica</span>
+            </button>
+          ) : (
+            <span className="text-xs text-amber-500">Essas foram todas as dicas!</span>
+          )}
         </div>
       )}
       <div className="flex flex-col justify-around gap-4 w-full border border-white rounded-md p-4">
         <div className="flex justify-between w-full">
           <div>
             <h2 className="font-cabin text-white">Objetivo</h2>
-            <span className="font-cabin text-sm text-gray-400">Descubra a imagem ao fundo</span>
+            <ul className="list-disc list-inside text-white p-2">
+              <li>
+                <span className="font-cabin text-sm text-gray-400">Clique nos círculos para revelar partes da imagem. Quando achar que sabe o que está por trás, tente adivinhar!</span>
+              </li>
+              <li>
+                <span className="font-cabin text-sm text-gray-400">Use dicas!</span>
+              </li>
+            </ul>
           </div>
           <div className="flex flex-col items-center">
             <button onClick={() => {

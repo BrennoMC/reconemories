@@ -1,17 +1,10 @@
 import { useNavigate } from "react-router-dom";
-
-interface Mission {
-  id: number;
-  route: string;
-}
+import PadlockIcon from '/assets/images/padlock.png';
+import { cn } from "../utils/cn";
+import { useMissions } from "../services/context/missionContext";
 
 export const Panel = () => {
-  const missions: Array<Mission> = [
-    { id: 1, route: '/step-one' },
-    { id: 2, route: '/step-two' },
-    { id: 3, route: '/step-three' },
-    { id: 4, route: '/step-four' },
-  ]
+  const { missions } = useMissions();
 
   const navigate = useNavigate();
   
@@ -23,12 +16,28 @@ export const Panel = () => {
       </h1>
       <div className="grid grid-cols-2 gap-2 w-full">
         {missions?.map((mission) => (
-          <button 
-            className="flex items-center justify-center bg-[#0b1b1a] h-50 p-4 border border-white rounded-lg cursor-pointer"
+
+          <button
+            key={mission.id}
             onClick={() => navigate(mission.route)}
+            disabled={mission.disabled}
           >
-            <h2 className="text-white text-6xl font-bold font-cabin">{mission.id}</h2>
+            <div 
+              className={cn('flex justify-center flex-col w-full h-50 p-4 border border-white rounded-lg cursor-pointer',  mission.disabled ? 'opacity-30' : 'bg-[#0b1b1a]')}
+            >
+              {mission.disabled && (
+                <div className="flex justify-between">
+                  <span className="font-cabin text-[0.5em] text-gray-300">{mission.dateUnlock}</span>
+                  <img src={PadlockIcon} alt='padlock' className="w-8 h-8" />
+                </div>
+              )}
+              <div className="flex justify-center items-center h-full">
+                <h2 className="text-white text-6xl font-bold font-cabin">{mission.id}</h2>
+              </div>
+
+            </div>
           </button>
+          
         ))}
       </div>
     </div>

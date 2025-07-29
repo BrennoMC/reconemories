@@ -1,4 +1,5 @@
-import { Modal } from "../../modal/Modal";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "../../modal/modal";
 import { useStepOne } from "./use-step-one";
 import ReloadIcon from "/assets/images/reload.png";
 
@@ -15,14 +16,20 @@ export const StepOne = () => {
     setIsLoss,
     initialNumbers,
   } = useStepOne();
+  
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col h-screen w-full max-w-[700px] overflow-y-auto items-center p-4 gap-2 justify-around bg-[#0f1a19]">
       
       <h1 className="text-[#ffc222] text-6xl font-bold font-cabin my-4">Missão 1</h1>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="flex flex-col items-center gap-4">
+      <Modal
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        classNameProps="bg-[#0f1a19]"
+      >
+        <div className="flex flex-col items-center gap-4 ">
           <h2 className="text-[#ffc222] text-2xl font-bold font-cabin">Parabéns!</h2>
           <p className="text-white text-center">Você conseguiu coletar o primeiro ingrediente!</p>
           
@@ -32,15 +39,20 @@ export const StepOne = () => {
           </div>
           
           <button
-            onClick={() => setIsModalOpen(false)}
-            className="bg-[#ffc222] text-[#0f1a19] px-6 py-2 rounded-lg font-bold hover:bg-[#ffb000] transition-colors"
+            onClick={() => {
+              setIsModalOpen(false);
+              unlockMission(2);
+              navigate('/panel')
+            }}
+            
           >
-            Continuar
+            <div className="bg-[#ffc222] text-[#0f1a19] px-6 py-2 rounded-lg font-bold hover:bg-[#ffb000] transition-colors">
+              Continuar
+            </div>
           </button>
         </div>
       </Modal>
 
-      {/* Board com overlay de derrota */}
       <div className="relative w-[90%] max-w-md items-center justify-center">
         {isLoss && (
           <button 
@@ -60,16 +72,18 @@ export const StepOne = () => {
           {numbers.map((number, index) => (
             <button
               key={index}
-              className={
+              onClick={() => handleSelectNumber(index)}
+              disabled={verifyWin()}
+            >
+              <div className={
                 `flex items-center justify-center h-20 border text-white font-bold text-xl cursor-pointer 
                 ${numbers[index] === '0' 
                   ? "border-gray-700 bg-gray-500" : "border-white"} 
                   ${selectedIndices.includes(index) ? " bg-yellow-700" : ""}`
                 }
-              onClick={() => handleSelectNumber(index)}
-              disabled={verifyWin()}
-            >
-              <span className={`${numbers[index] === '0'  ? " text-gray-700" : "text-white"} font-bold text-xl`}>{number}</span>
+              >
+                <span className={`${numbers[index] === '0'  ? " text-gray-700" : "text-white"} font-bold text-xl`}>{number}</span>
+              </div>
             </button>
           ))}
         </div>
