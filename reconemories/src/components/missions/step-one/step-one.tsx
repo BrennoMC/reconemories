@@ -27,7 +27,6 @@ export const StepOne = () => {
       <Modal
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        classNameProps="bg-[#0f1a19]"
       >
         <div className="flex flex-col items-center gap-4 ">
           <h2 className="text-[#ffc222] text-2xl font-bold font-cabin">Parabéns!</h2>
@@ -41,7 +40,6 @@ export const StepOne = () => {
           <button
             onClick={() => {
               setIsModalOpen(false);
-              unlockMission(2);
               navigate('/panel')
             }}
             
@@ -53,21 +51,27 @@ export const StepOne = () => {
         </div>
       </Modal>
 
-      <div className="relative w-[90%] max-w-md items-center justify-center">
-        {isLoss && (
+        <Modal
+          isOpen={isLoss} 
+          onClose={() => setIsLoss(false)} 
+          classNameProps="flex flex-col"
+        >
           <button 
-            className="absolute inset-0 flex flex-col items-center justify-center"
             onClick={() => {
               setNumbers(initialNumbers)
               setIsLoss(false)
             }}  
           >
-           <img src={ReloadIcon} alt="Reload" className="w-20 h-20" />
-           <div className="bg-amber-300 p-1 rounded-lg">
-            <span className="text-md font-cabin">Ah não! Você perdeu!</span>
-           </div>
+            <div className="flex flex-col items-center justify-center">
+              <img src={ReloadIcon} alt="Reload" className="w-20 h-20" />
+              <div className="bg-amber-300 p-1 rounded-lg">
+                <span className="text-md font-cabin">Ah não! Você perdeu!</span>
+              </div>
+            </div>
           </button>
-        )}
+
+        </Modal>
+      <div className="relative w-[90%] max-w-md items-center justify-center">
         <div className="grid grid-cols-4 grid-rows-4 gap-2 w-full border border-white rounded-lg p-2">
           {numbers.map((number, index) => (
             <button

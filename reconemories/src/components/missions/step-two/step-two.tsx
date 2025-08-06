@@ -1,6 +1,6 @@
 import { cn } from "../../../utils/cn";
 import { InputWithButton } from "./input-with-button/input-with-button";
-import { Modal } from "../../modal/Modal";
+import { Modal } from "../../modal/modal";
 import ReloadIcon from '/assets/images/reload.png';
 import { LIMIT, MARK_HIDE_CIRCLE } from "../../../consts/mission-two/consts";
 import Elevator from '/assets/images/elevator.jpg';

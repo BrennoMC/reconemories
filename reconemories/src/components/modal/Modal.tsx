@@ -6,9 +6,10 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   classNameProps?: string;
+  closeIcon?: boolean;
 }
 
-export const Modal = ({ isOpen, onClose, children, classNameProps }: ModalProps) => {
+export const Modal = ({ isOpen, onClose, children, classNameProps, closeIcon=true }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -19,14 +20,16 @@ export const Modal = ({ isOpen, onClose, children, classNameProps }: ModalProps)
         exit={{ opacity: 0, scale: 0.8 }}
         className={cn("p-6 rounded-lg border border-white max-w-md w-[90%] bg-[#0f1a19]", classNameProps)}
       >
-        <div className="flex justify-end mb-2">
-          <button
-            onClick={onClose}
-            className="flex text-white text-xl font-bold self-end"
-          >
-            <span className="text-white">✕</span>
-          </button>
-        </div>
+        {closeIcon && (
+          <div className="flex justify-end mb-2">
+            <button
+              onClick={onClose}
+              className="flex text-white text-xl font-bold self-end"
+            >
+              <span className="text-white">✕</span>
+            </button>
+          </div>
+        )}
         {children}
       </motion.div>
     </div>
