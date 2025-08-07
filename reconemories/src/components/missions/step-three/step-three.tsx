@@ -89,7 +89,7 @@ export const StepThree = () => {
 
       gridUpdated[position] = ingredient;
       
-      const newGrid2D = [];
+      const newGrid2D: any[] = [];
       for (let i = 0; i < 4; i++) {
         newGrid2D.push(gridUpdated.slice(i * 4, (i + 1) * 4));
       }

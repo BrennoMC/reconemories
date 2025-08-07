@@ -1,6 +1,8 @@
 
+import { useEffect } from "react";
 import { useIntroSteps } from "../hooks/scenes/useIntroSteps";
 import Arrow from '/assets/images/seta-para-a-direita.png';
+import { useNavigate } from "react-router-dom";
 
 export const Intro = () => {
   const { 
@@ -10,6 +12,15 @@ export const Intro = () => {
     canGoBack,
     isLastStep 
   } = useIntroSteps();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const alreadySeen = localStorage.getItem("intro_seen");
+    if (alreadySeen === "true") {
+      navigate("/panel");
+    }
+  }, []);
 
   return (
     <div className="flex justify-between max-w-[700px] w-full flex-col h-screen p-4 bg-[#202020]">
