@@ -38,3 +38,7 @@
 .fade-in {
   animation: fade-in 3s ease-out forwards;
 }
+
+input, button {
+  all: unset;
+}
