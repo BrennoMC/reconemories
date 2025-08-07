@@ -17,6 +17,7 @@ export const useIntroSteps = () => {
     if (!isLastSubstep) {
       setSubstep((prev) => prev + 1);
     } else if (isLastStep) {
+      localStorage.setItem("intro_seen", "true");
       navigate('/panel');
     } else {
       setStep((prev) => prev + 1);
