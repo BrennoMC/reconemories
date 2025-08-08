@@ -10,21 +10,19 @@ import { StepThree } from "./components/missions/step-three/step-three";
 function App() {
   return (
     <MissionProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Intro />} />
-          <Route path="/panel" element={<Panel />} />
-          <Route path="/step-one" element={<StepOne />} />
+      <Routes>
+        <Route path="/" element={<Intro />} />
+        <Route path="/panel" element={<Panel />} />
+        <Route path="/step-one" element={<StepOne />} />
 
-          <Route element={<PrivateRoute missionId={2} />}>
-            <Route path="/step-two" element={<StepTwo />} />
-          </Route>
-          <Route element={<PrivateRoute missionId={3} />}>
-            <Route path="/step-three" element={<StepThree />} />
-          </Route>
-          <Route path="*" element={<div>Página não encontrada</div>} />
-        </Routes>
-      </BrowserRouter>
+        <Route element={<PrivateRoute missionId={2} />}>
+          <Route path="/step-two" element={<StepTwo />} />
+        </Route>
+        <Route element={<PrivateRoute missionId={3} />}>
+          <Route path="/step-three" element={<StepThree />} />
+        </Route>
+        <Route path="*" element={<div>Página não encontrada</div>} />
+      </Routes>
     </MissionProvider>
   )
 }
