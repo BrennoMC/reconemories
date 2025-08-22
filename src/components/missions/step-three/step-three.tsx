@@ -34,6 +34,7 @@ export const StepThree = () => {
   const [totalReload, setTotalReload] = useState<number>(0);
   const [isLoss, setIsLoss] = useState(false);
   const [winner, setWinner] = useState(false);
+  const [wrongCells, setWrongCells] = useState<number[]>([]);
   const [gridList, setGridList] = useState([
     [bacon, '', '', bread],
     ['', '', '', ''],
@@ -134,7 +135,6 @@ export const StepThree = () => {
     }
   }
 
-  //verificar se o jogador ganhou ou perdeu
   const verifyWinner = () => {
     const gridFlat = gridList.flat();
     if (gridFlat.includes("")) return;
@@ -144,23 +144,46 @@ export const StepThree = () => {
       const row = gridFlat.slice(i * 4, (i + 1) * 4).map((cell: any) => {
         return cell?.props?.["data-name"];
       });
-
       grid2D.push(row);
     }
+
+    let invalidCells: number[] = [];
   
-    const isValidSet = (arr: string[]) =>
-      new Set(arr).size === 4 && arr.every(Boolean);
-  
-    // Verifica linhas
-    const allRowsValid = grid2D.every(isValidSet);
-  
-    // Verifica colunas
-    const allColsValid = [0, 1, 2, 3].every((colIndex) => {
-      const col = [grid2D[0][colIndex], grid2D[1][colIndex], grid2D[2][colIndex], grid2D[3][colIndex]];
-      return isValidSet(col);
+    // 🔹 Verifica linhas
+    grid2D.forEach((row, rowIndex) => {
+      const seen: Record<string, number[]> = {};
+      row.forEach((value, colIndex) => {
+        if (!value) return;
+        if (!seen[value]) {
+          seen[value] = [rowIndex * 4 + colIndex];
+        } else {
+          seen[value].push(rowIndex * 4 + colIndex);
+        }
+      });
+      Object.values(seen).forEach(indices => {
+        if (indices.length > 1) invalidCells.push(...indices);
+      });
     });
   
-    if (allRowsValid && allColsValid) {
+    // 🔹 Verifica colunas
+    for (let colIndex = 0; colIndex < 4; colIndex++) {
+      const seen: Record<string, number[]> = {};
+      for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
+        const value = grid2D[rowIndex][colIndex];
+        if (!value) continue;
+        const pos = rowIndex * 4 + colIndex;
+        if (!seen[value]) {
+          seen[value] = [pos];
+        } else {
+          seen[value].push(pos);
+        }
+      }
+      Object.values(seen).forEach(indices => {
+        if (indices.length > 1) invalidCells.push(...indices);
+      });
+    }
+  
+    if (invalidCells.length === 0) {
       setWinner(true);
       setIsModalOpen(true);
       confetti({
@@ -170,10 +193,12 @@ export const StepThree = () => {
       });
       return;
     }
-
-    setIsLoss(true)
+  
+    setWrongCells(invalidCells);
+    setIsLoss(true);
     setIsModalOpen(true);
   };
+  
   
   return (
     <div className="flex flex-col h-auto max-w-[768px] w-full items-center justify-center gap-4 p-2 bg-[#0f1a19] ">
@@ -185,7 +210,7 @@ export const StepThree = () => {
             <img 
               src='https://media.tenor.com/hx9dBu-vRDoAAAAi/shrek-smirk.gif' 
               alt='gif shrek' 
-              className=' w-20 h-20' 
+              className='w-20 h-20' 
             />
           ) : updateRandomIngredient}</span>
         </div>
@@ -216,7 +241,7 @@ export const StepThree = () => {
               }}>
                 <div
                   key={Number(ingredient)}
-                  className='w-20 h-20 border rounded-lg flex items-center justify-center text-white text-lg font-bold border-white'
+                  className='w-15 h-15 border rounded-lg flex items-center justify-center text-white text-lg font-bold border-white'
                 >
                   {ingredient}
                 </div>
@@ -286,12 +311,12 @@ export const StepThree = () => {
           <button onClick={() => logicalForIngredientSelected(index, updateRandomIngredient)}>
             <div
               key={index}
-              className={
-                cn(
-                  'w-20 h-20 border border-white rounded-lg flex items-center justify-center text-white text-lg font-bold', 
-                  selectedIndex === index ? 'border-amber-400 ring-2 ring-amber-400' : 'border-white'
-                )
-              }
+              className={cn(
+                'w-20 h-20 border rounded-lg flex items-center justify-center text-white text-lg font-bold',
+                selectedIndex === index ? 'border-amber-400 ring-2 ring-amber-400' : 'border-white',
+                winner ? 'border-4 border-green-500' : '',
+                wrongCells.includes(index) ? 'border-4 border-red-500' : ''
+              )}
             >
               {cell}
             </div>
