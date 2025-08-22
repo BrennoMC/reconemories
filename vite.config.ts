@@ -9,5 +9,13 @@ export default defineConfig({
     alias: {
       '@': '/src'
     }
-  }  
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        404: 'index.html'
+      }
+    }
+  }
 });

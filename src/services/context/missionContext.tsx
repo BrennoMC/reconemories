@@ -16,7 +16,7 @@ interface MissionContextType {
 const initialMissions: Mission[] = [
   { id: 1, route: '/step-one', disabled: false, dateUnlock: '' },
   { id: 2, route: '/step-two', disabled: false, dateUnlock: '' },
-  { id: 3, route: '/step-three', disabled: true, dateUnlock: '23/08/2025' },
+  { id: 3, route: '/step-three', disabled: false, dateUnlock: '' },
   { id: 4, route: '/step-four', disabled: true, dateUnlock: '30/08/2025' },
 ];
 

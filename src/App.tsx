@@ -14,13 +14,9 @@ function App() {
         <Route path="/" element={<Intro />} />
         <Route path="/panel" element={<Panel />} />
         <Route path="/step-one" element={<StepOne />} />
+        <Route path="/step-two" element={<StepTwo />} />
+        <Route path="/step-three" element={<StepThree />} />
 
-        <Route element={<PrivateRoute missionId={2} />}>
-          <Route path="/step-two" element={<StepTwo />} />
-        </Route>
-        <Route element={<PrivateRoute missionId={3} />}>
-          <Route path="/step-three" element={<StepThree />} />
-        </Route>
         <Route path="*" element={<div>Página não encontrada</div>} />
       </Routes>
     </MissionProvider>
